@@ -1,5 +1,5 @@
 <?php
-$CONFIG_PATH = "../config.json";
+$CONFIG_PATH = __DIR__ . "/../../config.json";
 $CONFIG = json_decode(file_get_contents($CONFIG_PATH), true);
 
 $host = $CONFIG['data-base']['host-name'];

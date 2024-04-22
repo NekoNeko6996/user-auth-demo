@@ -1,5 +1,5 @@
 <?php
-$CONFIG_PATH = "../config.json";
+$CONFIG_PATH = __DIR__ . "/../config.json";
 $CONFIG = json_decode(file_get_contents($CONFIG_PATH), true);
 
 
@@ -14,23 +14,29 @@ function DBQuery(string $sqlString, array $params, $connect)
   return ["result" => $result, "numRows" => $numRows, "status" => $status];
 }
 
-function JWT(array $payload)
+class JWT
 {
-  $key = $GLOBALS['CONFIG']['secret-key'];
+  private static function createSignature($header, $payload)
+  {
+    return str_replace(['+', '/', '='], ['-', '_', ''], base64_encode(hash_hmac('sha256', $header . "." . $payload, $GLOBALS['CONFIG']['secret-key'], true)));
+  }
 
   // create JWT
-  function create($payload, $key)
+  public static function create(array $payload)
   {
+    // key 
+    $key = $GLOBALS['CONFIG']['secret-key'];
+
+    // header
     $header = json_encode(['typ' => 'JWT', 'alg' => 'HS256']);
-    $payload = json_encode($payload);
 
     // payload
+    $payload = json_encode($payload);
     $base64UrlHeader = str_replace(['+', '/', '='], ['-', '_', ''], base64_encode($header));
     $base64UrlPayload = str_replace(['+', '/', '='], ['-', '_', ''], base64_encode($payload));
 
     //signature
-    $signature = hash_hmac('sha256', $base64UrlHeader . "." . $base64UrlPayload, $key, true);
-    $base64Signature = str_replace(['+', '/', '='], ['-', '_', ''], base64_encode($signature));
+    $base64Signature = self::createSignature($base64UrlHeader, $base64UrlPayload);
 
     //jwt
     $jwt = $base64UrlHeader . "." . $base64UrlPayload . "." . $base64Signature;
@@ -39,6 +45,21 @@ function JWT(array $payload)
   }
 
   // check JWT
-  
+  public static function check(string $jwt)
+  {
+    [$base64UrlHeader, $base64UrlPayload, $base64Signature] = explode('.', $jwt);
+    if ($base64Signature !== self::createSignature($base64UrlHeader, $base64UrlPayload)) {
+      return false;
+    }
+    return true;
+  }
 
+  public static function decode(string $jwt)
+  {
+    [$base64UrlHeader, $base64UrlPayload, $base64Signature] = explode('.', $jwt);
+    $header = base64_decode(str_replace(['-', '_'], ['+', '/'], $base64UrlHeader));
+    $payload = base64_decode(str_replace(['-', '_'], ['+', '/'], $base64UrlPayload));
+
+    return ["header" => $header, "payload" => $payload];
+  }
 }
