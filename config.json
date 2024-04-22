@@ -1,0 +1,12 @@
+{
+  "project-name": "user-auth-demo",
+  "version": "1.0.0",
+  "data-base": {
+    "host-name": "localhost",
+    "port": 3306,
+    "db-name": "user-auth-demo",
+    "user": "root",
+    "password": ""
+  },
+  "secret-key": "3b622930bc0c3ae3d2fec1cf628f5a5ef0c86db237a3b16a0be26509bb92d419"
+}
