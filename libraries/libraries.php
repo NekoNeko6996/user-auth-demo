@@ -14,6 +14,11 @@ function DBQuery(string $sqlString, array $params, $connect)
   return ["result" => $result, "numRows" => $numRows, "status" => $status];
 }
 
+function convertString(string $text)
+{
+  return htmlspecialchars($text, ENT_QUOTES, 'UTF-8');
+}
+
 class JWT
 {
   private static function createSignature($header, $payload)

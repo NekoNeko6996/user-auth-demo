@@ -13,6 +13,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
       $JWT = JWT::create([
         "email" => $User[0]['userEmail'],
+        "nickname" => $User[0]['nickname'],
         "permissionID" => $User[0]['permissionID'],
         "userID" => $User[0]['userID'],
         "expiry" => $expiry
