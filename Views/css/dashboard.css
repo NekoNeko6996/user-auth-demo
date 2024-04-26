@@ -1,0 +1,256 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+
+  --height-nav: 55px;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+body {
+  display: flex;
+  flex-direction: row;
+  height: 100vh;
+  width: 100vw;
+  overflow: hidden;
+}
+
+.top-nav {
+  width: 100%;
+  height: var(--height-nav);
+  background-color: #f1f1f1;
+  border-bottom: 1px solid rgba(107, 107, 107, 0.596);
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  top: 0;
+}
+
+/* -------------------------- */
+.container {
+  width: 85%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+.aside-left {
+  width: 15%;
+  height: 100%;
+  background-color: #343a40;
+}
+.middle-section {
+  width: 100%;
+  height: calc(100vh - var(--height-nav));
+  padding: 10px;
+  overflow-y: scroll;
+}
+
+::-webkit-scrollbar {
+  width: 5px;
+}
+::-webkit-scrollbar-thumb {
+  background-color: #888;
+  border-radius: 8px;
+}
+
+/* ----------------------- note ----------------------- */
+.note-show-container {
+  width: 100%;
+  border-radius: 10px;
+}
+
+.note-inner-container {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  height: 100%;
+  width: 101%;
+}
+
+.note-show-container > .note {
+  width: 350px;
+  height: 300px;
+  border-radius: 5px;
+  margin: 10px;
+  display: inline-block;
+}
+
+.note-show-container > .note > .note-header {
+  --title-height: 50px;
+
+  width: 100%;
+  height: var(--title-height);
+  border-bottom: 2px solid white;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 5px 0 10px;
+  color: white;
+}
+
+.note-show-container > .note > .note-header > h3 {
+  flex-grow: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.note-show-container > .note > .note-header > span {
+  display: flex;
+  flex-direction: row;
+}
+
+.note-show-container > .note > .note-header > span > button {
+  height: 30px;
+  aspect-ratio: 1/1;
+  font-size: 19px;
+  background: none;
+  border: 1px solid white;
+  border-radius: 5px;
+  color: white;
+  cursor: pointer;
+  margin: 5px;
+}
+
+.note-show-container > .note > .note-body {
+  width: 100%;
+  height: calc(100% - var(--title-height));
+  padding: 10px;
+  color: white;
+}
+
+.normal {
+  background-color: rgb(0, 158, 0);
+}
+.warn {
+  background-color: rgb(218, 178, 3);
+}
+.important {
+  background-color: rgb(255, 136, 0);
+}
+.danger {
+  background-color: rgb(252, 73, 73);
+}
+
+/* -------------------- items --------------------- */
+.card {
+  width: calc(100% - 20px);
+  border: 1px solid rgba(107, 107, 107, 0.596);
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+  border-radius: 10px;
+  margin: 10px;
+}
+
+.card-header {
+  width: 100%;
+  padding: 10px 10px 10px 20px;
+  margin-left: 10px;
+  border-left: 4px solid rgb(0, 196, 0);
+}
+
+.card-body {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  font-size: 20px;
+  border-left: 4px solid rgb(0, 196, 0);
+  margin-left: 10px;
+}
+
+.card-body p {
+  margin: 10px 20px 10px 20px;
+}
+
+/* ------------ aside left ----------- */
+.logo {
+  width: 100%;
+  height: 60px;
+  border-bottom: 1px solid white;
+}
+
+.create-new-trade-button {
+  width: 90%;
+  height: 40px;
+  margin: 20px 0 20px 5%;
+  background-color: rgb(255, 255, 255);
+  border: none;
+  border-radius: 5px;
+  font-weight: bold;
+  font-size: 20px;
+  cursor: pointer;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.692);
+}
+
+.aside-option-container {
+  width: 100%;
+  padding: 10px;
+}
+
+.aside-option-container .year {
+  width: 100%;
+}
+
+/* ----------- dropdown ------------ */
+.aside-option-container .dropdown-menu {
+  cursor: pointer;
+  font-size: 17px;
+  margin-bottom: 10px;
+  border: none;
+  border-radius: 5px;
+  width: 100%;
+}
+
+.aside-option-container .dropdown-menu > .title {
+  color: white;
+  font-size: 18px;
+  background-color: white;
+  height: 40px;
+  width: 100%;
+  border-radius: 5px;
+  background-color: #007bff;
+  display: flex;
+  align-items: center;
+  padding: 0 20px 0 20px;
+}
+.aside-option-container .dropdown-menu > .menu {
+  padding-left: 20px;
+  height: 0;
+  transition: 0.3s;
+  overflow: hidden;
+  opacity: 0;
+}
+.aside-option-container .dropdown-menu > .menu > p {
+  padding: 3px 0 3px 0;
+  cursor: pointer;
+  color: white;
+}
+
+.active {
+  opacity: 1 !important;
+  height: 160px !important;
+  overflow: visible !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.479);
+}
+/* ----------------------- */
+.aside-option-container .year > .quarter {
+  width: 100%;
+  background-color: white;
+  border-top: 1px solid rgb(153, 153, 153);
+  padding: 5px 5px 5px 0;
+}
+
+.aside-option-container .year > .quarter > p {
+  padding: 3px;
+  margin-left: 20px;
+  border-left: 1px solid black;
+  cursor: pointer;
+}
+.aside-option-container .year > .quarter > p:hover {
+  background-color: #01996b;
+  color: white;
+}
