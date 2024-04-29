@@ -26,6 +26,20 @@ body {
   top: 0;
 }
 
+.title {
+  margin-left: 10px;
+  font-size: 28px;
+  color: #4646469c;
+}
+
+.group {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  /* border: 1px solid black; */
+  padding: 10px;
+}
+
 /* -------------------------- */
 .container {
   width: 85%;
@@ -134,8 +148,23 @@ body {
 .danger {
   background-color: rgb(252, 73, 73);
 }
+/* -------------------- map ----------------------- */
+.map-container {
+  position: relative;
+
+  flex-grow: 1;
+  width: 40%;
+}
+.gg-map-iframe {
+  height: 100%;
+  width: 100%;
+}
 
 /* -------------------- items --------------------- */
+.trading-card-container {
+  width: 60%;
+}
+
 .card {
   width: calc(100% - 20px);
   border: 1px solid rgba(107, 107, 107, 0.596);
@@ -143,7 +172,11 @@ body {
   flex-direction: column;
   padding: 10px;
   border-radius: 10px;
-  margin: 10px;
+  margin-bottom: 10px;
+}
+
+.card:last-child {
+  margin-bottom: 0;
 }
 
 .card-header {
@@ -173,7 +206,7 @@ body {
   border-bottom: 1px solid white;
 }
 
-.create-new-trade-button {
+.create-new-button {
   width: 90%;
   height: 40px;
   margin: 20px 0 20px 5%;
@@ -188,7 +221,7 @@ body {
 
 .aside-option-container {
   width: 100%;
-  padding: 10px;
+  padding: 5px 15px 15px 15px;
 }
 
 .aside-option-container .year {
@@ -237,20 +270,34 @@ body {
   border-bottom: 1px solid rgba(255, 255, 255, 0.479);
 }
 /* ----------------------- */
-.aside-option-container .year > .quarter {
+.aside-option-container > .aside-pages {
+  height: 40px;
   width: 100%;
-  background-color: white;
-  border-top: 1px solid rgb(153, 153, 153);
-  padding: 5px 5px 5px 0;
+  color: white;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin: 5px 0 5px 0;
+  font-weight: bold;
+  transition: 0.2s;
+  border: 3px solid #343a40;
+  cursor: default;
 }
 
-.aside-option-container .year > .quarter > p {
-  padding: 3px;
-  margin-left: 20px;
-  border-left: 1px solid black;
-  cursor: pointer;
+.aside-option-container > .aside-pages:hover {
+  padding-left: 10px;
+  border-left: 3px solid #007bff;
 }
-.aside-option-container .year > .quarter > p:hover {
-  background-color: #01996b;
-  color: white;
+
+.aside-pages-active {
+  background: rgb(60, 166, 255);
+  background: linear-gradient(
+    90deg,
+    rgba(60, 166, 255, 1) 0%,
+    rgba(255, 255, 255, 0) 100%
+  );
+  padding-left: 10px;
+  border-left: 3px solid #007bff !important;
 }
+
+/* ---------------------------------------------------- */
