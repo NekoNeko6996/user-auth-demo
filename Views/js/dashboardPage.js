@@ -11,11 +11,12 @@ function loadBody(body, element) {
   }
 
   var bodyUrl = `components/body_${body}.php`;
+  $(".loading-layer").removeClass("loading-layer-hide");
   $(".middle-section").load(bodyUrl);
 }
 
 //------------------ onload page --------------------//
 $(document).ready(() => {
   // load dashboard body
-  loadBody("dashboard", $(".aside-pages").first()[0]);
+  loadBody("weather", $(".aside-pages").children().prevObject[4]);
 });

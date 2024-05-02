@@ -4,6 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script src="../libraries/jquery.min.js"></script>
   <script src="js/dashboardPage.js"></script>
   <link rel="stylesheet" href="css/dashboard.css">
@@ -47,6 +48,17 @@ $payload = json_decode(JWT::decode($_COOKIE['JWT'])["payload"]);
     <section class="middle-section">
       <!-- body load here -->
     </section>
+  </div>
+
+
+  <div class="loading-layer">
+    <div class="lds-ellipsis">
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+    </div>
+    <h2>Now loading...</h2>
   </div>
 </body>
 

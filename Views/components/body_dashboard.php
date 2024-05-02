@@ -14,28 +14,51 @@ $data = [
     "name" => "Trading 1",
     "price" => 1000,
     "amount" => 10,
-    "tradeAt" => date("Y-m-d H:i:s"),
+    "at" => "2024-01-01 00:00:00",
   ],
   [
     "id" => 2,
     "name" => "Trading 2",
     "price" => 2000,
     "amount" => 20,
-    "tradeAt" => date("Y-m-d H:i:s"),
+    "at" => "2024-01-02 00:00:00",
   ],
   [
     "id" => 3,
     "name" => "Trading 3",
     "price" => 3000,
     "amount" => 30,
-    "tradeAt" => date("Y-m-d H:i:s"),
+    "at" => "2024-01-05 00:00:00",
   ],
   [
     "id" => 4,
     "name" => "Trading 4",
     "price" => 4000,
     "amount" => 40,
-    "tradeAt" => date("Y-m-d H:i:s"),
+    "at" => "2024-01-08 00:00:00",
+  ]
+];
+
+$balance = [
+  [
+    "id" => 1,
+    "accountBalance" => 100000,
+    "at" => "2024-01-01 00:00:00",
+  ],
+  [
+    "id" => 1,
+    "accountBalance" => 150000,
+    "at" => "2024-01-02 00:00:00",
+  ],
+  [
+    "id" => 1,
+    "accountBalance" => 120000,
+    "at" => "2024-01-05 00:00:00",
+  ],
+  [
+    "id" => 1,
+    "accountBalance" => 305000,
+    "at" => "2024-01-07 00:00:00",
   ]
 ];
 
@@ -79,17 +102,14 @@ $notesList = DBQuery("SELECT * FROM notes", [], $connect)['result'];
             <p>Price: <?= number_format($item["price"], 0, "", ".") . " VND" ?></p>
             <p>Amount: <?= $item["amount"] ?></p>
             <p>Total: <?= number_format($item["price"] * $item["amount"], 0, "", ".") . " VND" ?></p>
-            <p>Trade At: <?= $item["tradeAt"] ?></p>
+            <p>Trade At: <?= $item["at"] ?></p>
           </div>
         </div>
       <?php endforeach; ?>
     </div>
-    <div class="map-container">
-      <iframe
-        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d251630.7434784939!2d105.44729142224281!3d9.788867042466181!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31a0f291eda269b3%3A0x79a372e92efed9e5!2zSOG6rXUgR2lhbmcsIFZp4buHdCBOYW0!5e0!3m2!1svi!2s!4v1714351287770!5m2!1svi!2s"
-        style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"
-        class="gg-map-iframe">
-      </iframe>
+    <div class="chart-container">
+
+      <canvas id="body_trading_chart"></canvas>
     </div>
   </div>
 
@@ -105,4 +125,11 @@ $notesList = DBQuery("SELECT * FROM notes", [], $connect)['result'];
     <br>
     <br>
   </div>
+
+
+  <script>
+    $(document).ready(() => {
+      $(".loading-layer").addClass("loading-layer-hide");
+    })
+  </script>
 </body>

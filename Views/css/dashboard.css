@@ -26,6 +26,95 @@ body {
   top: 0;
 }
 
+/* ------------- loading layer ------------- */
+.loading-layer {
+  position: fixed !important;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  background-color: #4b616e;
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: white;
+}
+.loading-layer-hide {
+  animation: hide-loading-layer 0.3s 0.1s ease-in-out;
+  animation-fill-mode: forwards;
+}
+
+@keyframes hide-loading-layer {
+  to {
+    transform: translateY(-100%);
+  }
+}
+
+.lds-ellipsis,
+.lds-ellipsis div {
+  box-sizing: border-box;
+}
+.lds-ellipsis {
+  display: inline-block;
+  position: relative;
+  width: 80px;
+  height: 80px;
+}
+.lds-ellipsis div {
+  position: absolute;
+  top: 33.33333px;
+  width: 13.33333px;
+  height: 13.33333px;
+  border-radius: 50%;
+  background: currentColor;
+  animation-timing-function: cubic-bezier(0, 1, 1, 0);
+  background-color: white;
+}
+.lds-ellipsis div:nth-child(1) {
+  left: 8px;
+  animation: lds-ellipsis1 0.6s infinite;
+}
+.lds-ellipsis div:nth-child(2) {
+  left: 8px;
+  animation: lds-ellipsis2 0.6s infinite;
+}
+.lds-ellipsis div:nth-child(3) {
+  left: 32px;
+  animation: lds-ellipsis2 0.6s infinite;
+}
+.lds-ellipsis div:nth-child(4) {
+  left: 56px;
+  animation: lds-ellipsis3 0.6s infinite;
+}
+@keyframes lds-ellipsis1 {
+  0% {
+    transform: scale(0);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+@keyframes lds-ellipsis3 {
+  0% {
+    transform: scale(1);
+  }
+  100% {
+    transform: scale(0);
+  }
+}
+@keyframes lds-ellipsis2 {
+  0% {
+    transform: translate(0, 0);
+  }
+  100% {
+    transform: translate(24px, 0);
+  }
+}
+
+/*  -------------------------- */
+
 .title {
   margin-left: 10px;
   font-size: 28px;
@@ -38,6 +127,7 @@ body {
   flex-direction: row;
   /* border: 1px solid black; */
   padding: 10px;
+  position: relative;
 }
 
 /* -------------------------- */
@@ -154,6 +244,7 @@ body {
 
   flex-grow: 1;
   width: 40%;
+  height: 100% !important;
 }
 .gg-map-iframe {
   height: 100%;
@@ -300,4 +391,11 @@ body {
   border-left: 3px solid #007bff !important;
 }
 
-/* ---------------------------------------------------- */
+/* -------------------------chart--------------------------- */
+.chart-container {
+  width: 40%;
+  flex-grow: 1;
+}
+#body_trading_chart {
+  height: 100%;
+}
