@@ -391,6 +391,18 @@ body {
   border-left: 3px solid #007bff !important;
 }
 
+.aside-pages > svg {
+  position: absolute;
+}
+
+.aside-pages {
+  position: relative;
+}
+.aside-pages > p {
+  position: relative;
+  left: 40px;
+}
+
 /* -------------------------chart--------------------------- */
 .chart-container {
   width: 40%;

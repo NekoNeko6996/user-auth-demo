@@ -18,5 +18,5 @@ function loadBody(body, element) {
 //------------------ onload page --------------------//
 $(document).ready(() => {
   // load dashboard body
-  loadBody("weather", $(".aside-pages").children().prevObject[4]);
+  loadBody("calendar", $(".aside-pages").children().prevObject[3]);
 });

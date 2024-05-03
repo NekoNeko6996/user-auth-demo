@@ -11,6 +11,9 @@ if (!isset($data)) {
 date_default_timezone_set("Asia/Bangkok");
 $currentHour = date("H");
 
+if ($currentHour < 10)
+  $currentHour = str_replace("0", "", $currentHour);
+
 if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] === 'POST') {
   header('Content-Type: application/json');
   echo json_encode($data);
@@ -23,6 +26,7 @@ if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] === 'POST') 
 </head>
 
 <body>
+  <h1 class="weather-title">In The Next Seven Hours</h1>
   <div class="temperature-container">
     <?php
     if ($currentHour > 17)
@@ -72,6 +76,7 @@ if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] === 'POST') 
     ?>
   </div>
 
+  <h1 class="weather-title">Current Weather</h1>
   <div class="current-weather-container">
     <div class="current-weather">
       <div class="current-weather-svg">
@@ -87,7 +92,7 @@ if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] === 'POST') 
         <p class="current-weather-text"><?= $data['current']['temperature_2m'] ?><span class="unit">°C</span></p>
         <span>
           <p>UV</p>
-          <p><?= $data['daily']['uv_index_max'][5] ?></p>
+          <p><?= $data['daily']['uv_index_max'][0] ?></p>
         </span>
       </div>
     </div>
@@ -145,6 +150,7 @@ if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] === 'POST') 
     </div>
   </div>
 
+  <h1 class="weather-title">Weather Chart</h1>
   <div class="weather-chart-container">
     <div>
       <canvas id="precipitation-chart"></canvas>
@@ -163,48 +169,24 @@ if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] === 'POST') 
     var weatherData = JSON.parse(`<?= json_encode($data) ?>`);
     var date = new Date();
 
+    console.log(weatherData)
 
     var precipitationChartCtx = $("#precipitation-chart");
     var precipitationChart = new Chart(precipitationChartCtx, {
       type: 'line',
       data: {
-        labels: weatherData.hourly.time.slice(date.getHours(), date.getHours() + 12).map(time => time.slice(11, 16)),
-        datasets: [{
-          label: 'Amount Of Rain (mm)',
-          data: weatherData.hourly.precipitation.slice(date.getHours(), date.getHours() + 12),
-          borderWidth: 1
-        }]
-      },
-      options: {
-        scales: {
-          y: {
-            beginAtZero: true
-          }
-        }
-      }
-    });
-
-    // 
-    var temperatureChartCtx = $("#temperature-chart");
-    var temperatureChart = new Chart(temperatureChartCtx, {
-      type: 'line',
-      data: {
-        labels: weatherData.hourly.time.slice(date.getHours(), date.getHours() + 12).map(time => time.slice(11, 16)),
+        labels: weatherData.hourly.time.slice(date.getHours(), date.getHours() + 15).map(time => time.slice(11, 16)),
         datasets: [
           {
-            label: 'Max Temperature (°C)',
-            data: weatherData.hourly.temperature_2m.slice(date.getHours(), date.getHours() + 12),
+            label: 'Amount Of Rain (mm)',
+            data: weatherData.hourly.precipitation.slice(date.getHours(), date.getHours() + 15),
             yAxisID: 'y',
-            borderColor: 'rgba(255, 99, 132, 1)',
-            backgroundColor: 'rgba(255, 99, 132, 0.2)',
             borderWidth: 1
           },
           {
-            label: 'Humidity (%)',
-            data: weatherData.hourly.relative_humidity_2m.slice(date.getHours(), date.getHours() + 12),
+            label: 'Precipitation Probability (%)',
+            data: weatherData.hourly.precipitation_probability.slice(date.getHours(), date.getHours() + 15),
             yAxisID: 'y1',
-            borderColor: 'rgba(54, 162, 235, 1)',
-            backgroundColor: 'rgba(54, 162, 235, 0.2)',
             borderWidth: 1
           }
         ]
@@ -215,11 +197,60 @@ if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] === 'POST') 
             type: 'linear',
             display: true,
             position: 'left',
+            ticks: {
+              color: "rgba(54, 162, 235, 1)"
+            }
+          },
+          y1: {
+            type: 'linear',
+            display: true,
+            position: 'right',
+            ticks: {
+              color: "rgba(255, 99, 132, 1)"
+            }
+          }
+        }
+      }
+    });
+
+    // 
+    var temperatureChartCtx = $("#temperature-chart");
+    var temperatureChart = new Chart(temperatureChartCtx, {
+      type: 'line',
+      data: {
+        labels: weatherData.hourly.time.slice(date.getHours(), date.getHours() + 15).map(time => time.slice(11, 16)),
+        datasets: [
+          {
+            label: 'Humidity (%)',
+            data: weatherData.hourly.relative_humidity_2m.slice(date.getHours(), date.getHours() + 15),
+            yAxisID: 'y1',
+            borderWidth: 1
+          },
+          {
+            label: 'Max Temperature (°C)',
+            data: weatherData.hourly.temperature_2m.slice(date.getHours(), date.getHours() + 15),
+            yAxisID: 'y',
+            borderWidth: 1
+          }
+        ]
+      },
+      options: {
+        scales: {
+          y: {
+            type: 'linear',
+            display: true,
+            position: 'left',
+            ticks: {
+              color: "rgba(255, 99, 132, 1)"
+            }
           },
           y1: {
             type: 'linear',
             position: 'right',
             display: true,
+            ticks: {
+              color: "rgba(54, 162, 235, 1)"
+            }
           }
         }
       }
