@@ -76,8 +76,12 @@
       })
     }
 
-
     loadCalendar()
+
+
+    // navigator.geolocation.getCurrentPosition(position => {
+    //   console.log(position);
+    // })
 
   </script>
 </body>

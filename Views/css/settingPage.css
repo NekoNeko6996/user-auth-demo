@@ -1,0 +1,99 @@
+.setting-title {
+  margin-bottom: 10px;
+  color: white;
+  width: 100%;
+  background-color: #008ada;
+  padding: 10px 15px 10px 15px;
+}
+
+.weather-setting-container {
+  width: 50%;
+  border: 2px solid rgba(107, 107, 107, 0.377);
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.weather-setting-body {
+  width: 100%;
+  padding: 15px;
+  display: flex;
+  flex-direction: row;
+}
+
+.form-container {
+  display: flex;
+  flex-direction: column;
+  width: 45%;
+  margin-right: 10px;
+  gap: 25px;
+}
+
+.weather-setting-body > iframe {
+  width: 50%;
+  flex-grow: 1;
+}
+
+.weather-setting-body form {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  margin-right: 10px;
+}
+
+.weather-setting-body form > div {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  flex-grow: 1;
+}
+
+.weather-setting-container input {
+  height: 40px;
+  border-radius: 5px;
+  border: 1px solid rgba(107, 107, 107, 0.596);
+}
+
+.weather-setting-container form .form-group {
+  width: 49%;
+  display: flex;
+  flex-direction: column;
+}
+
+.form-group > label {
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.form-group > input {
+  padding-left: 10px;
+  font-size: 18px;
+}
+
+.form-group > button {
+  margin-top: 10px;
+  padding: 10px;
+  cursor: pointer;
+  background-color: #4fbeff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  width: 49%;
+}
+
+.form-group > button:hover {
+  background-color: #0079be;
+}
+
+.submit-button {
+  justify-content: space-between !important;
+  width: 100% !important;
+  flex-direction: row !important;
+}
+
+.weather-location-search-form {
+  width: 100% !important;
+}
+
+#map {
+  flex-grow: 1 !important;
+}

@@ -18,5 +18,5 @@ function loadBody(body, element) {
 //------------------ onload page --------------------//
 $(document).ready(() => {
   // load dashboard body
-  loadBody("calendar", $(".aside-pages").children().prevObject[3]);
+  loadBody("setting", $(".aside-pages").children().prevObject[5]);
 });

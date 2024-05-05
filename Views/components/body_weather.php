@@ -1,7 +1,7 @@
 <?php
 
 // fetch weather data
-$url = "https://api.open-meteo.com/v1/forecast?latitude=10&longitude=105&current=temperature_2m,relative_humidity_2m,wind_speed_10m,wind_direction_10m&hourly=temperature_2m,relative_humidity_2m,precipitation_probability,precipitation,rain,cloud_cover,evapotranspiration,wind_speed_10m,soil_temperature_0cm&daily=temperature_2m_max,temperature_2m_min,sunshine_duration,uv_index_max,precipitation_probability_max,wind_speed_10m_max,wind_direction_10m_dominant&timezone=Asia%2FBangkok";
+$url = "https://api.open-meteo.com/v1/forecast?latitude=9.788159&longitude=105.612665&current=temperature_2m,relative_humidity_2m,wind_speed_10m,wind_direction_10m&hourly=temperature_2m,relative_humidity_2m,precipitation_probability,precipitation,rain,cloud_cover,evapotranspiration,wind_speed_10m,soil_temperature_0cm&daily=temperature_2m_max,temperature_2m_min,sunshine_duration,uv_index_max,precipitation_probability_max,wind_speed_10m_max,wind_direction_10m_dominant&timezone=Asia%2FBangkok";
 
 if (!isset($data)) {
   $data = file_get_contents($url, true);
@@ -164,8 +164,8 @@ if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] === 'POST') 
   <script>
     $(document).ready(() => {
       $(".loading-layer").addClass("loading-layer-hide");
+    });
 
-    })
     var weatherData = JSON.parse(`<?= json_encode($data) ?>`);
     var date = new Date();
 
