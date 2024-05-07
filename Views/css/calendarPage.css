@@ -27,9 +27,26 @@
   overflow: hidden;
 }
 
+table {
+  width: 100%;
+  height: 100%;
+}
+
+tbody {
+  display: grid;
+  grid-template-rows: repeat(6, 1fr);
+  width: 100%;
+  height: calc(100% - 70px);
+}
+
 .calendar-header {
   width: 100%;
   height: 70px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 30px 0 30px;
 }
 
 .calendar-week {
@@ -45,6 +62,12 @@
   align-items: center;
   font-weight: bold;
   border: 1px solid rgba(104, 104, 104, 0.582);
+}
+
+.calendar-row {
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
 }
 
 .calendar-day-week:first-child {
@@ -63,11 +86,123 @@
 }
 
 .calendar-ceil {
-  border: 1px solid rgba(104, 104, 104, 0.274);
   padding: 5px;
+  display: flex;
+  flex-direction: column;
 }
 .calendar-day-num-p {
   width: 100%;
   height: 20px;
   text-align: right;
+}
+
+/* ----------------------- change month container ---------------- */
+.change-month-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  width: 190px;
+
+  gap: 5px;
+}
+
+.change-month-container span {
+  display: flex;
+  flex-direction: row;
+}
+
+.change-month-btn {
+  height: 35px;
+  width: 60px;
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+  background-color: rgb(25, 105, 255);
+  color: white;
+}
+
+.change-month-btn:first-child {
+  border-top-left-radius: 5px;
+  border-bottom-left-radius: 5px;
+}
+
+.change-month-btn:last-child {
+  border-top-right-radius: 5px;
+  border-bottom-right-radius: 5px;
+}
+
+.change-month-btn:hover {
+  background-color: rgb(0, 68, 255);
+}
+
+/*  */
+.current-day-btn {
+  height: 35px;
+  width: 70px;
+  border: none;
+  background-color: rgb(25, 105, 255);
+  cursor: pointer;
+  color: white;
+  border-radius: 5px;
+}
+
+.current-day-btn:hover {
+  background-color: rgb(0, 68, 255);
+}
+
+/* ------------ calendar view ------------- */
+.calendar-view-format {
+  width: 190px;
+  display: flex;
+  flex-direction: row;
+}
+
+.calendar-view-btn {
+  height: 35px;
+  width: 60px;
+  border: none;
+  background-color: rgb(25, 105, 255);
+  color: white;
+}
+
+.calendar-view-btn:first-child {
+  border-top-left-radius: 5px;
+  border-bottom-left-radius: 5px;
+}
+
+.calendar-view-btn:last-child {
+  border-top-right-radius: 5px;
+  border-bottom-right-radius: 5px;
+}
+
+.calendar-view-btn:hover {
+  background-color: rgb(0, 68, 255);
+}
+
+/* ----------- calendar date --------- */
+.calendar-date {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+.calendar-date p {
+  margin: 5px;
+  font-size: 25px;
+}
+
+/* --------- date event ---------- */
+.calendar-day-event {
+  width: 100%;
+  flex-grow: 1;
+
+  background-color: aquamarine;
+}
+
+.date-event {
+  width: 100%;
+
+  border: 1px solid red;
 }

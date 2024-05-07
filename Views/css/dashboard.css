@@ -404,10 +404,21 @@ body {
 }
 
 /* -------------------------chart--------------------------- */
-.chart-container {
-  width: 40%;
-  flex-grow: 1;
+
+/* ------------------------- alert message --------------------------- */
+.alert-message-container {
+  padding: 10px;
+  background-color: rgb(221, 122, 83);
+  color: white;
 }
-#body_trading_chart {
-  height: 100%;
+
+/* ------------- balance container ------------- */
+.balance-container {
+  width: calc(100% - 20px);
+  height: 200px;
+  display: flex;
+  flex-direction: row;
+
+  margin: 10px;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.315);
 }

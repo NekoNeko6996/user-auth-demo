@@ -18,5 +18,5 @@ function loadBody(body, element) {
 //------------------ onload page --------------------//
 $(document).ready(() => {
   // load dashboard body
-  loadBody("setting", $(".aside-pages").children().prevObject[5]);
+  loadBody("dashboard", $(".aside-pages").children().prevObject[0]);
 });

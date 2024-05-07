@@ -1,7 +1,14 @@
 <?php
+// if (!isset($_COOKIE['JWT']) || !JWT::check($_COOKIE['JWT'])) {
+//   header("Location: login.php");
+//   exit();
+// }
+
+$latitude = isset($_COOKIE['latitude']) ? $_COOKIE['latitude'] : 9.75;
+$longitude = isset($_COOKIE['longitude']) ? $_COOKIE['longitude'] : 105.75;
 
 // fetch weather data
-$url = "https://api.open-meteo.com/v1/forecast?latitude=9.788159&longitude=105.612665&current=temperature_2m,relative_humidity_2m,wind_speed_10m,wind_direction_10m&hourly=temperature_2m,relative_humidity_2m,precipitation_probability,precipitation,rain,cloud_cover,evapotranspiration,wind_speed_10m,soil_temperature_0cm&daily=temperature_2m_max,temperature_2m_min,sunshine_duration,uv_index_max,precipitation_probability_max,wind_speed_10m_max,wind_direction_10m_dominant&timezone=Asia%2FBangkok";
+$url = "https://api.open-meteo.com/v1/forecast?latitude=$latitude&longitude=$longitude&current=temperature_2m,relative_humidity_2m,wind_speed_10m,wind_direction_10m&hourly=temperature_2m,relative_humidity_2m,precipitation_probability,precipitation,rain,cloud_cover,evapotranspiration,wind_speed_10m,soil_temperature_0cm&daily=temperature_2m_max,temperature_2m_min,sunshine_duration,uv_index_max,precipitation_probability_max,wind_speed_10m_max,wind_direction_10m_dominant&timezone=Asia%2FBangkok";
 
 if (!isset($data)) {
   $data = file_get_contents($url, true);
@@ -19,6 +26,10 @@ if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] === 'POST') 
   echo json_encode($data);
   exit();
 }
+
+// user position cookie
+// $_COOKIE['latitude'] = 9.75;
+// $_COOKIE['longitude'] = 105.75;
 ?>
 
 <head>
@@ -26,6 +37,12 @@ if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] === 'POST') 
 </head>
 
 <body>
+  <?php if (!isset($_COOKIE['latitude']) || !isset($_COOKIE['longitude'])): ?>
+    <div class="alert-message-container">
+      You haven't set your location yet, we need your location to provide weather data, go to settings and set it!
+    </div>
+  <?php endif; ?>
+
   <h1 class="weather-title">In The Next Seven Hours</h1>
   <div class="temperature-container">
     <?php

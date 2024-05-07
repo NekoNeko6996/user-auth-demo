@@ -52,12 +52,32 @@
 
 
   <script>
+    var latitude = '<?= isset($_COOKIE['latitude']) ? $_COOKIE['latitude'] : 9.75 ?>';
+    var longitude = '<?= isset($_COOKIE['longitude']) ? $_COOKIE['longitude'] : 105.75 ?>';
+    var cityName = '<?= isset($_COOKIE['cityName']) ? $_COOKIE['cityName'] : 'Hậu Giang' ?>';
+
     $(document).ready(() => {
       $(".loading-layer").addClass("loading-layer-hide");
     })
 
+    // set location cookie
+    function setLocationCookie(latitude, longitude, cityName) {
+      var d = new Date();
+
+      // 365 days
+      var expirationDays = 365;
+      d.setTime(d.getTime() + (expirationDays * 24 * 60 * 60 * 1000));
+      var expires = "expires=" + d.toUTCString();
+
+      document.cookie = `latitude=${latitude};${expires};path=/`;
+      document.cookie = `longitude=${longitude};${expires};path=/`;
+      document.cookie = `cityName=${cityName};${expires};path=/`;
+    }
+
+    console.log(document.cookie)
+
     // map
-    var map = L.map('map').setView([20.974897, 105.654517], 10);
+    var map = L.map('map').setView([latitude, longitude], 10);
     L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
       maxZoom: 19,
       attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
@@ -84,7 +104,7 @@
     }
 
 
-    
+
     function userPositionSubmit(event) {
       event.preventDefault();
       var latitude = $("#input-latitude").val();
@@ -115,6 +135,16 @@
         .catch(error => {
           console.error('Error:', error);
         });
+    }
+
+    function userPositionSubmit(event) {
+      event.preventDefault();
+
+      var latitude = $("#input-latitude").val();
+      var longitude = $("#input-longitude").val();
+      var city = $("#input-city").val();
+
+      setLocationCookie(latitude, longitude, city);
     }
 
   </script>

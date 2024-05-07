@@ -89,6 +89,9 @@ $notesList = DBQuery("SELECT * FROM notes", [], $connect)['result'];
 
   </div>
 
+  <div class="balance-container">
+
+  </div>
 
   <h1 class="title">Trading</h1>
   <div class="group">
@@ -106,10 +109,6 @@ $notesList = DBQuery("SELECT * FROM notes", [], $connect)['result'];
           </div>
         </div>
       <?php endforeach; ?>
-    </div>
-    <div class="chart-container">
-
-      <canvas id="body_trading_chart"></canvas>
     </div>
   </div>
 
