@@ -108,6 +108,56 @@ $payload = json_decode(JWT::decode($_COOKIE['JWT'])["payload"]);
   </div>
 
 
+  <!-- add new note layer -->
+  <div class="add-new-note-floating-layer">
+    <div class="add-new-note-container">
+      <div class="add-new-note-header">
+        <h2>Add New Note</h2>
+      </div>
+      <div class="add-new-note-body">
+        <form action="#" id="add-new-note-form" onsubmit="addNewNote(event)">
+          <div class="form-group">
+            <label for="title">Title</label>
+            <input type="text" id="title" name="note-title" placeholder="title note..." required>
+          </div>
+          <div class="form-group">
+            <label for="content">Content</label>
+            <textarea id="content" name="note-content" placeholder="do something..."></textarea>
+          </div>
+          <div class="form-group">
+            <span>
+              <input type="radio" name="note-tab" id="normal-radio" value="normal" required checked>
+              <label for="normal-radio">Normal</label>
+              <div class="note-tab-color" style="background-color: var(--note-normal-background-color)"></div>
+            </span>
+
+            <span>
+              <input type="radio" name="note-tab" id="warn-radio" value="warn">
+              <label for="warn-radio">Warn</label>
+              <div class="note-tab-color" style="background-color: var(--note-warn-background-color)"></div>
+            </span>
+
+            <span>
+              <input type="radio" name="note-tab" id="important-radio" value="important">
+              <label for="important-radio">Important</label>
+              <div class="note-tab-color" style="background-color: var(--note-important-background-color)"></div>
+            </span>
+
+            <span>
+              <input type="radio" name="note-tab" id="danger-radio" value="danger">
+              <label for="danger-radio">Danger</label>
+              <div class="note-tab-color" style="background-color: var(--note-danger-background-color)"></div>
+            </span>
+          </div>
+          <div class="form-group">
+            <button type="button" class="add-button" onclick="addNewNote(event)">Add</button>
+            <button type="button" class="cancel-button" onclick="showAddNewNoteForm(false)">Cancel</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  <!-- loading layer -->
   <div class="loading-layer">
     <div class="lds-ellipsis">
       <div></div>
@@ -117,6 +167,13 @@ $payload = json_decode(JWT::decode($_COOKIE['JWT'])["payload"]);
     </div>
     <h2>Now loading...</h2>
   </div>
+
+  <!-- small message box -->
+  <div class="small-message-box">
+    <p>...</p>
+  </div>
+
+
 </body>
 
 </html>

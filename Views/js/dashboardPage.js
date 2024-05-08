@@ -19,4 +19,67 @@ function loadBody(body, element) {
 $(document).ready(() => {
   // load dashboard body
   loadBody("dashboard", $(".aside-pages").children().prevObject[0]);
+
+  //
+  showAddNewNoteForm(false);
+
+  //
+  showMessageAlert("", 0, false);
 });
+
+// show message box
+function showMessageAlert(message, times, show, color) {
+  var messageBox = $(".small-message-box");
+
+  if (show && message) {
+    messageBox.children("p").text(message);
+    messageBox.show();
+
+    if (color) {
+      messageBox.css("--message-box-color", color);
+    } else {
+      messageBox.css("--message-box-color", "green");
+    }
+
+    setTimeout(() => {
+      messageBox.hide();
+    }, times);
+  } else {
+    messageBox.hide();
+  }
+}
+
+// show add new note form
+function showAddNewNoteForm(show) {
+  if (show) {
+    $(".add-new-note-floating-layer").show();
+  } else {
+    $(".add-new-note-floating-layer").hide();
+  }
+}
+
+// get new note
+function addNewNote(event) {
+  event.preventDefault();
+  var formData = $("#add-new-note-form").serialize();
+
+  // { status: "success", message: "Note added successfully" }
+
+  $.ajax({
+    type: "POST",
+    url: "../Server/api/addNewNoteController.php",
+    data: formData,
+    success: function (response) {
+      try {
+        response = JSON.parse(response);
+        if (response.status == "success") {
+          console.log(response);
+          showAddNewNoteForm(false);
+        }
+        showMessageAlert(response.message, 3000, true, "green");
+      } catch (error) {
+        console.log(error);
+      }
+    },
+  });
+}
