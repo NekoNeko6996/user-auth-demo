@@ -62,8 +62,12 @@ $balance = [
   ]
 ];
 
+
+//
+$payload = json_decode(JWT::decode($_COOKIE['JWT'])["payload"]);
+
 // notes loader
-$notesList = DBQuery("SELECT * FROM notes", [], $connect)['result'];
+$notesList = DBQuery("SELECT * FROM notes WHERE author = ? LIMIT 4", [$payload->userID], $connect)['result'];
 ?>
 
 <body>
@@ -74,14 +78,14 @@ $notesList = DBQuery("SELECT * FROM notes", [], $connect)['result'];
       <?php foreach ($notesList as $item): ?>
         <div class="note <?= $item["tab"] ?>">
           <div class="note-header">
-            <h3><?= $item["title"] ?></h3>
+            <input type="text" value="<?= $item["title"] ?>" class="note-title">
             <span>
               <button type="button" class="edit-note-button">✔</button>
               <button type="button" class="delete-note-button" onclick="deleteNote(<?= $item['id'] ?>)">✘</button>
             </span>
           </div>
           <div class="note-body">
-            <p><?= $item["content"] ?></p>
+            <textarea><?= $item["content"] ?></textarea>
           </div>
         </div>
       <?php endforeach; ?>
@@ -153,7 +157,15 @@ $notesList = DBQuery("SELECT * FROM notes", [], $connect)['result'];
           id
         },
         success: (response) => {
-          console.log(response);
+          try {
+            var response = JSON.parse(response);
+            if (response.status == "success") {
+              loadBody("dashboard", $(".aside-pages").children().prevObject[0]);
+            }
+          }
+          catch (error) {
+            console.log(response);
+          }
         },
         error: (error) => {
           console.log(error);

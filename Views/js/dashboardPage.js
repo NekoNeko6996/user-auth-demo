@@ -63,18 +63,20 @@ function addNewNote(event) {
   event.preventDefault();
   var formData = $("#add-new-note-form").serialize();
 
-  // { status: "success", message: "Note added successfully" }
+  console.log(formData);
 
   $.ajax({
     type: "POST",
     url: "../Server/api/addNewNoteController.php",
     data: formData,
     success: function (response) {
+      console.log(response);
       try {
         response = JSON.parse(response);
         if (response.status == "success") {
           console.log(response);
           showAddNewNoteForm(false);
+          loadBody("dashboard", $(".aside-pages").children().prevObject[0]);
         }
         showMessageAlert(response.message, 3000, true, "green");
       } catch (error) {

@@ -199,6 +199,8 @@ body {
   border-radius: 10px;
   display: flex;
   flex-direction: row;
+  position: relative;
+  padding-left: 5px;
 }
 
 .note-inner-container {
@@ -210,11 +212,12 @@ body {
 }
 
 .note-show-container > .note {
-  width: 350px;
-  height: 300px;
+  width: calc(20% - 10px);
+  aspect-ratio: 1/1;
   border-radius: 5px;
-  margin: 10px;
-  display: inline-block;
+  display: flex;
+  flex-direction: column;
+  margin: 10px 5px 10px 5px; 
 }
 
 .note-show-container > .note > .note-header {
@@ -231,11 +234,17 @@ body {
   color: white;
 }
 
-.note-show-container > .note > .note-header > h3 {
+.note-show-container > .note > .note-header > .note-title {
   flex-grow: 1;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+
+  font-size: 20px;
+  background-color: transparent;
+  border: none;
+  outline: none;
+  color: white;
 }
 
 .note-show-container > .note > .note-header > span {
@@ -257,9 +266,20 @@ body {
 
 .note-show-container > .note > .note-body {
   width: 100%;
-  height: calc(100% - var(--title-height));
+  flex-grow: 1;
   padding: 10px;
+  position: relative;
+}
+
+.note-show-container > .note > .note-body > textarea {
+  width: 100%;
+  height: 100%;
+  resize: none;
+  background-color: transparent;
+  overflow: hidden;
   color: white;
+  border: none;
+  outline: none;
 }
 
 .normal {
@@ -277,8 +297,8 @@ body {
 
 .note-create-news {
   margin: 10px;
-  height: 300px;
-  width: 300px;
+  width: calc(20% - 10px);
+  aspect-ratio: 1/1;
   border-radius: 10px;
   overflow: hidden;
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.315);

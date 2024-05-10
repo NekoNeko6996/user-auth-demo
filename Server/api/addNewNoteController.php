@@ -6,6 +6,8 @@ if (!isset($_COOKIE['JWT']) || !JWT::check($_COOKIE['JWT'])) {
   header("Location: ../../Views/login.php");
   exit();
 }
+// payload
+$payload = json_decode(JWT::decode($_COOKIE['JWT'])["payload"]);
 
 // add new note
 if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -14,17 +16,19 @@ if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] === 'POST') 
     $content = convertString($_POST['note-content']);
     $tab = convertString($_POST['note-tab']);
 
-    $sql = "INSERT INTO notes (title, content, tab) VALUES (?, ?, ?)";
-    $status = DBQuery($sql, [$title, $content, $tab], $connect)['status'];
+    $sql = "INSERT INTO notes (title, content, author, tab) VALUES (?, ?, ?, ?)";
+    $status = DBQuery($sql, [$title, $content, $payload->userID, $tab], $connect)['status'];
 
     if ($status[0] === "00000") {
       $status = "success";
       $message = "Note added successfully!";
+      $newNoteArray = DBQuery("SELECT * FROM notes WHERE author = ?", [$payload->userID], $connect)['result'];
     } else {
       $status = "fail";
       $message = $status[2];
+      $newNoteArray = null;
     }
 
-    echo json_encode(["tile" => $title, "content" => $content, "tab" => $tab, "status" => $status, "message" => $message]);
+    echo json_encode(["status" => $status, "message" => $message, "newNoteArray" => $newNoteArray]);
   }
 }

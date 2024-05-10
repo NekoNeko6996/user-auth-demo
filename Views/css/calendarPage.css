@@ -198,11 +198,9 @@ tbody {
   width: 100%;
   flex-grow: 1;
 
-  background-color: aquamarine;
 }
 
 .date-event {
   width: 100%;
 
-  border: 1px solid red;
 }
