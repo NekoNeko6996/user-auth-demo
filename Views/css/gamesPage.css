@@ -1,0 +1,30 @@
+.game-container {
+  width: 100%;
+
+  border: 1px solid rgba(107, 107, 107, 0.377);
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.game-icon {
+  width: 10%;
+  display: inline-block;
+  cursor: pointer;
+}
+
+.game-icon:hover {
+  scale: 1.02;
+}
+
+.game-icon img {
+  width: 100%;
+  aspect-ratio: 1/1;
+}
+
+.game-icon p {
+  text-align: center;
+  width: 100%;
+  color: black;
+}
