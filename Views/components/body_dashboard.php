@@ -11,28 +11,28 @@ if (!isset($_COOKIE['JWT']) || !JWT::check($_COOKIE['JWT'])) {
 $data = [
   [
     "id" => 1,
-    "name" => "Trading 1",
+    "name" => "spending 1",
     "price" => 1000,
     "amount" => 10,
     "at" => "2024-01-01 00:00:00",
   ],
   [
     "id" => 2,
-    "name" => "Trading 2",
+    "name" => "spending 2",
     "price" => 2000,
     "amount" => 20,
     "at" => "2024-01-02 00:00:00",
   ],
   [
     "id" => 3,
-    "name" => "Trading 3",
+    "name" => "spending 3",
     "price" => 3000,
     "amount" => 30,
     "at" => "2024-01-05 00:00:00",
   ],
   [
     "id" => 4,
-    "name" => "Trading 4",
+    "name" => "spending 4",
     "price" => 4000,
     "amount" => 40,
     "at" => "2024-01-08 00:00:00",
@@ -71,6 +71,8 @@ $notesList = DBQuery("SELECT * FROM notes WHERE author = ? LIMIT 4", [$payload->
 ?>
 
 <body>
+  <!-- scroll -->
+  <div class="scroll-bar"></div>
   <h1 class="title">Notes</h1>
   <div class="note-show-container">
     <!--class: normal warn important danger -->
@@ -108,9 +110,9 @@ $notesList = DBQuery("SELECT * FROM notes WHERE author = ? LIMIT 4", [$payload->
 
   </div>
 
-  <h1 class="title">Trading</h1>
+  <h1 class="title">Spending</h1>
   <div class="group">
-    <div class="trading-card-container">
+    <div class="spending-card-container">
       <?php foreach ($data as $item): ?>
         <div class="card">
           <div class="card-header">
@@ -124,6 +126,45 @@ $notesList = DBQuery("SELECT * FROM notes WHERE author = ? LIMIT 4", [$payload->
           </div>
         </div>
       <?php endforeach; ?>
+    </div>
+
+    <div class="add-spending-form-container">
+      <div class="add-spending-form-header">
+        <h2>Add New Spending</h2>
+      </div>
+
+      <form action="#" class="add-spending-form-body">
+        <div class="lb-input-form-group">
+          <input type="text" id="spending-name">
+          <label for="spending-name">Name</label>
+        </div>
+        <div class="lb-input-form-group">
+          <input type="number" id="spending-price">
+          <label for="spending-price">Price</label>
+        </div>
+        <div class="lb-input-form-group">
+          <input type="number" id="spending-amount">
+          <label for="spending-amount">Amount</label>
+        </div>
+        <span>
+          <div class="form-group">
+            <label for="spending-category">Category</label>
+            <select name="category" id="category">
+              <option value="normal">Normal</option>
+              <option value="important">Important</option>
+              <option value="warn">Warn</option>
+              <option value="danger">Danger</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="spending-at">Trade At</label>
+            <input type="date" id="spending-at">
+          </div>
+        </span>
+        <div class="form-group">
+          <button type="submit">Add</button>
+        </div>
+      </form>
     </div>
   </div>
 

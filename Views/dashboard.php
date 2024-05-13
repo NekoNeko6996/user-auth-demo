@@ -110,6 +110,7 @@ $payload = json_decode(JWT::decode($_COOKIE['JWT'])["payload"]);
     </div>
   </aside>
   <div class="container">
+    <!-- top nav -->
     <nav class="top-nav">
       <button type="button"><a href="../Server/api/logoutController.php">Logout</a></button>
     </nav>

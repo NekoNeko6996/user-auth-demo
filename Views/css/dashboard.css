@@ -31,6 +31,28 @@ body {
   top: 0;
 }
 
+/* .scroll-bar {
+  height: 5px;
+  width: 100%;
+  position: sticky;
+  background-color: #007bff;
+  top: 0;
+  left: 0;
+
+  scale: 0 1;
+
+  transform-origin: left;
+  animation: scroll-bar linear;
+  animation-timeline: scroll();
+  z-index: 30;
+}
+
+@keyframes scroll-bar {
+  to {
+    scale: 1 1;
+  }
+} */
+
 /* ------------- loading layer ------------- */
 .loading-layer {
   position: fixed !important;
@@ -217,7 +239,7 @@ body {
   border-radius: 5px;
   display: flex;
   flex-direction: column;
-  margin: 10px 5px 10px 5px; 
+  margin: 10px 5px 10px 5px;
 }
 
 .note-show-container > .note > .note-header {
@@ -352,7 +374,7 @@ body {
   flex-direction: column;
 }
 
-#add-new-note-form > .form-group {
+.form-group {
   display: flex;
   flex-direction: column;
   flex-wrap: nowrap;
@@ -443,8 +465,8 @@ body {
 }
 
 /* -------------------- items --------------------- */
-.trading-card-container {
-  width: 60%;
+.spending-card-container {
+  width: 70%;
 }
 
 .card {
@@ -479,6 +501,86 @@ body {
 
 .card-body p {
   margin: 10px 20px 10px 20px;
+}
+
+/* -- */
+.add-spending-form-container {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.315);
+}
+
+.add-spending-form-header {
+  width: 100%;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  padding-left: 10px;
+  background-color: #1486ff;
+  color: white;
+}
+
+.add-spending-form-body {
+  width: 100%;
+  flex-grow: 1;
+  padding: 20px;
+}
+
+.add-spending-form-body span {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.add-spending-form-body .form-group {
+  flex-grow: 1;
+}
+
+.add-spending-form-body .form-group > input,
+select {
+  height: 35px;
+}
+
+.add-spending-form-body button {
+  padding: 10px 20px 10px 20px;
+  width: 200px;
+  align-self: flex-end;
+
+  border-radius: 5px;
+  border: none;
+  background-color: #007bff;
+  color: white;
+  font-size: 18px;
+}
+
+.add-spending-form-body button:hover {
+  background-color: #0069d9;
+}
+
+.lb-input-form-group {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 20px;
+  position: relative;
+  padding-top: 1rem;
+}
+
+.lb-input-form-group > input {
+  height: 44px;
+  font-size: 18px;
+  padding-left: 10px;
+}
+
+.lb-input-form-group > label {
+  position: absolute;
+  top: 0.5rem;
+  left: 10px;
+  background-color: white;
+  padding: 0 5px 0 5px;
 }
 
 /* ------------ aside left ----------- */
