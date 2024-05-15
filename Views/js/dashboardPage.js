@@ -18,7 +18,7 @@ function loadBody(body, element) {
 //------------------ onload page --------------------//
 $(document).ready(() => {
   // load dashboard body
-  loadBody("dashboard", $(".aside-pages").children().prevObject[0]);
+  loadBody("profile", $(".aside-pages").children().prevObject[5]);
 
   //
   showAddNewNoteForm(false);

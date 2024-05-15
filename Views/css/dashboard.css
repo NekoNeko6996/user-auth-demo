@@ -22,13 +22,76 @@ body {
 
 .top-nav {
   width: 100%;
-  height: var(--height-nav);
   background-color: #f1f1f1;
   border-bottom: 1px solid rgba(107, 107, 107, 0.596);
   display: flex;
   justify-content: flex-end;
   align-items: center;
   top: 0;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.473);
+}
+
+.nav-user-info-container {
+  height: 100%;
+  margin: 0 10px 0 10px;
+  border-right: 1px solid rgba(107, 107, 107, 0.596);
+  border-left: 1px solid rgba(107, 107, 107, 0.596);
+  position: relative;
+}
+
+.nav-user-info-container > .nav-user-info {
+  width: 100%;
+  height: 55px;
+  display: flex;
+  gap: 10px;
+
+  align-items: center;
+  padding: 0 10px 0 10px;
+  border-radius: 40px;
+}
+
+.nav-user-info-container > .nav-user-info > img {
+  border-radius: 50%;
+  height: 40px;
+  aspect-ratio: 1/1;
+}
+
+.nav-user-info-container > .nav-user-options {
+  width: 100%;
+
+  display: none;
+  flex-direction: column;
+  align-items: flex-end;
+
+  height: auto;
+  overflow: hidden;
+  position: absolute;
+  box-shadow: 0 5px 5px rgba(0, 0, 0, 0.315);
+}
+
+.nav-user-info-container:hover > .nav-user-options {
+  display: flex;
+  z-index: 10;
+}
+
+.nav-user-options:hover {
+  display: flex;
+  z-index: 10;
+}
+
+.nav-user-options > button {
+  width: 100%;
+  padding: 5px 0 5px 0;
+  background-color: white;
+  border: none;
+  padding: 10px;
+  font-size: 17px;
+  text-align: left;
+}
+
+.nav-user-options > button:hover {
+  background-color: #007bff;
+  color: white;
 }
 
 /* .scroll-bar {
@@ -398,6 +461,7 @@ body {
   height: 150px;
   padding: 5px;
   font-size: 17px;
+  resize: none;
 }
 
 #add-new-note-form > .form-group:last-child {
