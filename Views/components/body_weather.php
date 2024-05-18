@@ -216,7 +216,8 @@ if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] === 'POST') 
             position: 'left',
             ticks: {
               color: "rgba(54, 162, 235, 1)"
-            }
+            },
+            beginAtZero: true
           },
           y1: {
             type: 'linear',
@@ -224,7 +225,8 @@ if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] === 'POST') 
             position: 'right',
             ticks: {
               color: "rgba(255, 99, 132, 1)"
-            }
+            },
+            beginAtZero: true
           }
         }
       }
