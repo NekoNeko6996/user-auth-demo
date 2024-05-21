@@ -3,6 +3,16 @@ $CONFIG_PATH = __DIR__ . "/../config.json";
 $CONFIG = json_decode(file_get_contents($CONFIG_PATH), true);
 
 
+// create id
+function createRandomID(int $length, array $exitingIDs)
+{
+  do {
+    $id = bin2hex(random_bytes(ceil($length / 2)));
+  } while (in_array($id, $exitingIDs));
+
+  return $id;
+}
+
 function DBQuery(string $sqlString, array $params, $connect)
 {
   $stmt = $connect->prepare($sqlString);

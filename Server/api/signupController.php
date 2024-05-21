@@ -11,15 +11,23 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     //hash password
     $hash = password_hash($password, PASSWORD_DEFAULT);
 
-    $status = DBQuery("INSERT INTO users (nickname, userEmail, hashString) VALUES (?, ?, ?)", [$nickname, $email, $hash], $connect)['status'];
+    //user id
+    $exitingIDs = DBQuery("SELECT userID FROM users", [], $connect)['result'];
+    $userID = createRandomID(10, $exitingIDs);
+
+    //insert into database
+    $status = DBQuery("INSERT INTO users (userID, userEmail, hashString) VALUES (?, ?, ?)", [$userID, $email, $hash], $connect)['status'];
+
+    if ($status[0] === "00000") {
+      $status = DBQuery("INSERT INTO users_info (userID, userName) VALUES (?, ?)", [$userID, $nickname], $connect)['status'];
+    }
 
     if ($status[0] === "00000") {
       $expiry = time() + 3600 * 24;
-      $userID = DBQuery("SELECT userID FROM users WHERE userEmail = ?", [$email], $connect)['result'][0]['userID'];
+      // $userID = DBQuery("SELECT userID FROM users WHERE userEmail = ?", [$email], $connect)['result'][0]['userID'];
 
       $JWT = JWT::create([
         "email" => $email,
-        "nickname" => $nickname,
         "permissionID" => $GLOBALS['CONFIG']['default-permission'],
         "userID" => $userID,
         "expiry" => $expiry

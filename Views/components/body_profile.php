@@ -1,7 +1,24 @@
 <?php
+include "../../Server/database/connect.php";
+include "../../libraries/libraries.php";
 
+if (!isset($_COOKIE['JWT']) || !JWT::check($_COOKIE['JWT'])) {
+  header("Location: /../login.php");
+  exit();
+}
 
+if (!isset($payload) || empty($payload)) {
+  $payload = json_decode(JWT::decode($_COOKIE['JWT'])["payload"]);
+}
 
+if (!isset($user) || empty($user)) {
+  $user = DBQuery("SELECT * FROM users INNER JOIN users_info ON users.userID = users_info.userID WHERE users.userID = ?", [$payload->userID], $connect);
+  if ($user['numRows'] > 0) {
+    $user = $user['result'][0];
+  } else {
+    $user = null;
+  }
+}
 ?>
 
 <head>
@@ -9,6 +26,9 @@
 </head>
 
 <body>
+  <?php if (empty($user) || $user === null): ?>
+    <p>You are not logged in</p>
+  <?php endif ?>
   <div class="profile-container">
     <div class="user-info">
       <te class="profile-user-avatar-container">
@@ -19,12 +39,24 @@
 
         </div>
         <div>
-          <p class="profile-user-name">Nguyen Hoang Nam</p>
+          <p class="profile-user-name"><?php echo $user['userName'] ?></p>
           <textarea name="user-status-t-area" id="user-status-t-area">this is your status XD</textarea>
         </div>
       </te>
       <div class="profile-user-info">
         <table cellspacing="20">
+          <tr>
+            <th>
+              <svg width="30px" height="30px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path
+                  d="M12 7V12L14.5 10.5M21 12C21 16.9706 16.9706 21 12 21C7.02944 21 3 16.9706 3 12C3 7.02944 7.02944 3 12 3C16.9706 3 21 7.02944 21 12Z"
+                  stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+              </svg>
+            </th>
+            <td>
+              <p>Date Register: <?= $user['createAt'] ?></p>
+            </td>
+          </tr>
           <tr>
             <th>
               <svg width="30px" height="30px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -34,7 +66,7 @@
                   stroke-linecap="round" />
               </svg>
             </th>
-            <td>h7qFP@example.com</td>
+            <td><?php echo $user['userEmail'] ?></td>
           </tr>
           <tr>
             <th>
@@ -44,7 +76,7 @@
                   stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
               </svg>
             </th>
-            <td>0123456789</td>
+            <td><?php echo $user['phone'] ?></td>
           </tr>
           <tr>
             <th>
@@ -60,7 +92,7 @@
               </svg>
             </th>
             <td>
-              Hau Giang
+              <?php echo $user['address'] ?>
             </td>
           </tr>
           <tr>
@@ -87,7 +119,15 @@
               </svg>
             </th>
             <td>
-              <a href="http://localhost" target="_blank">http://localhost</a>
+              <a href="<?php echo $user['webLink'] ?>" target="_blank">
+                <p>
+                  <?php if (strlen($user['webLink']) > 35)
+                    echo substr($user['webLink'], 0, 33) . '...';
+                  else
+                    echo $user['webLink'];
+                  ?>
+                </p>
+              </a>
             </td>
         </table>
       </div>
@@ -102,27 +142,27 @@
             <div>
               <div class="form-group">
                 <label for="username">Username</label>
-                <input type="text" id="username" name="username">
+                <input type="text" id="username" name="username" value="<?= $user['userName'] ?>">
               </div>
               <div class="form-group">
                 <label for="email">Email</label>
-                <input type="email" id="email" name="email">
+                <input type="email" id="email" name="email" value="<?= $user['userEmail'] ?>">
               </div>
             </div>
             <div>
               <div class="form-group">
                 <label for="phone">Phone</label>
-                <input type="tel" name="phone" id="phone">
+                <input type="tel" name="phone" id="phone" value="<?= $user['phone'] ?>">
               </div>
               <div class="form-group">
                 <label for="web">Web</label>
-                <input type="text" name="web">
+                <input type="text" name="web" value="<?= $user['webLink'] ?>">
               </div>
             </div>
             <div>
               <div class="form-group">
                 <label for="address">Address</label>
-                <input type="text" id="address" name="address">
+                <input type="text" id="address" name="address" value="<?= $user['address'] ?>">
               </div>
             </div>
             <span>
@@ -134,20 +174,34 @@
       </div>
       <div>
         <div class="edit-info-header">
-          <p>Edit Password</p>
+          <p>Change Password</p>
         </div>
         <div class="edit-info-body">
           <form action="#" class="edit-info-form">
             <div>
               <div class="form-group">
-                <label for="password">Password</label>
-                <input type="password" id="password" name="password" autocomplete="on">
+                <label for="new-password">New Password</label>
+                <input type="password" id="new-password" name="new-password" autocomplete="on">
               </div>
               <div class="form-group">
-                <label for="confirm-password">Confirm Password</label>
-                <input type="password" id="confirm-password" name="confirm-password" autocomplete="on">
+                <label for="confirm-new-password">Confirm New Password</label>
+                <input type="password" id="confirm-new-password" name="confirm-new-password" autocomplete="on">
               </div>
             </div>
+            <span>
+              <button type="submit" class="normal-button" disabled>Confirm</button>
+              <button type="reset" class="normal-button">Cancel</button>
+            </span>
+          </form>
+        </div>
+      </div>
+
+      <div>
+        <div class="edit-info-header">
+          <p>Delete Account</p>
+        </div>
+        <div class="edit-info-body">
+          <form action="#" class="edit-info-form">
             <span>
               <button type="submit" class="normal-button" disabled>Confirm</button>
               <button type="reset" class="normal-button">Cancel</button>
