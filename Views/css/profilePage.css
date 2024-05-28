@@ -176,7 +176,7 @@ a {
   gap: 1rem;
 }
 
-.edit-info-body > form > div > .form-group {
+.edit-info-body > form .form-group {
   display: flex;
   flex-direction: column;
   margin-bottom: 20px;
@@ -185,13 +185,13 @@ a {
   flex-grow: 1;
 }
 
-.edit-info-body > form > div > .form-group > input {
+.edit-info-body > form .form-group > input {
   height: 44px;
   font-size: 18px;
   padding-left: 10px;
 }
 
-.edit-info-body > form > div > .form-group > label {
+.edit-info-body > form .form-group > label {
   position: absolute;
   top: 0.5rem;
   left: 10px;
@@ -206,3 +206,6 @@ a {
   flex-direction: row;
   justify-content: flex-end;
 }
+
+
+/* ------------------------------------------- */

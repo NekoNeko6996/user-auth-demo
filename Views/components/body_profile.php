@@ -177,20 +177,27 @@ if (!isset($user) || empty($user)) {
           <p>Change Password</p>
         </div>
         <div class="edit-info-body">
-          <form action="#" class="edit-info-form">
+          <form action="#" class="edit-info-form" onsubmit="changePassword(event)" id="change-password-form">
+            <div class="form-group">
+              <label for="old-password">Old Password</label>
+              <input type="password" id="old-password" name="old-password" autocomplete="on"
+                oninput="onchangePassInput()">
+            </div>
             <div>
               <div class="form-group">
                 <label for="new-password">New Password</label>
-                <input type="password" id="new-password" name="new-password" autocomplete="on">
+                <input type="password" id="new-password" name="new-password" autocomplete="on"
+                  oninput="onchangePassInput()">
               </div>
               <div class="form-group">
                 <label for="confirm-new-password">Confirm New Password</label>
-                <input type="password" id="confirm-new-password" name="confirm-new-password" autocomplete="on">
+                <input type="password" id="confirm-new-password" name="confirm-new-password" autocomplete="on"
+                  oninput="onchangePassInput()">
               </div>
             </div>
             <span>
-              <button type="submit" class="normal-button" disabled>Confirm</button>
-              <button type="reset" class="normal-button">Cancel</button>
+              <button type="submit" class="normal-button" disabled id="change-password-button">Confirm</button>
+              <button type="reset" class="normal-button" onclick="onchangePassInput(true)">Cancel</button>
             </span>
           </form>
         </div>
@@ -203,8 +210,7 @@ if (!isset($user) || empty($user)) {
         <div class="edit-info-body">
           <form action="#" class="edit-info-form">
             <span>
-              <button type="submit" class="normal-button" disabled>Confirm</button>
-              <button type="reset" class="normal-button">Cancel</button>
+              <button type="submit" class="alert-button" disabled>DELETED MY ACCOUNT</button>
             </span>
           </form>
         </div>
@@ -232,5 +238,64 @@ if (!isset($user) || empty($user)) {
         this.style.height = 0;
         this.style.height = `${this.scrollHeight}px`;
       });
+
+
+    function onchangePassInput(disabled) {
+      const newPassInput = $("#new-password");
+      const confirmNewPassInput = $("#confirm-new-password");
+      if (newPassInput.val() === confirmNewPassInput.val() && newPassInput.val() !== "" && confirmNewPassInput.val() !== "") {
+        $("#change-password-button").prop("disabled", false);
+      } else {
+        $("#change-password-button").prop("disabled", true);
+      }
+      if (disabled) {
+        $("#change-password-button").prop("disabled", true);
+      }
+    }
+
+    // check new password
+    function checkPassword(pass) {
+      return /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/.test(pass);
+    }
+
+    function changePassword(event) {
+      event.preventDefault();
+
+      //
+      const formData = $("#change-password-form").serialize();
+      const oldPassInput = $("#old-password");
+      const newPassInput = $("#new-password");
+      const confirmNewPassInput = $("#confirm-new-password");
+
+
+      if (!checkPassword(newPassInput.val())) {
+        alert("Password must be at least 8 characters long and contain at least one uppercase letter, one lowercase letter, one number and one special character");
+        return;
+      }
+
+      if (newPassInput.val() === confirmNewPassInput.val() && newPassInput.val() !== "" && confirmNewPassInput.val() !== "" && oldPassInput.val() !== "") {
+        $.ajax({
+          type: "POST",
+          url: "../Server/api/changePasswordController.php",
+          data: formData,
+          success: (response) => {
+            try {
+              response = JSON.parse(response);
+              if (response.status === "success") {
+                console.log(response);
+                alert("Change password successfully");
+              } else {
+                alert(response.message);
+              }
+            } catch (error) {
+              console.log(error);
+            }
+          }
+        });
+      } else {
+        alert("New password and confirm new password must be same");
+      }
+    }
+
   </script>
 </body>
