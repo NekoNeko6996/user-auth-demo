@@ -67,7 +67,7 @@ $balance = [
 $payload = json_decode(JWT::decode($_COOKIE['JWT'])["payload"]);
 
 // notes loader
-$notesList = DBQuery("SELECT * FROM notes WHERE author = ? LIMIT 4", [$payload->userID], $connect)['result'];
+$notesList = DBQuery("SELECT * FROM notes WHERE userID = ? LIMIT 4", [$payload->userID], $connect)['result'];
 ?>
 
 <body>

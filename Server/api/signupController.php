@@ -8,6 +8,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $email = strtolower(convertString($_POST['email']));
     $password = $_POST['password'];
 
+    // check email
+    if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+      echo json_encode(["status" => "fail", "message" => "Invalid email!"]);
+      exit();
+    }
+
+    // check existing email
+    $exitingEmails = DBQuery("SELECT userEmail FROM users", [], $connect)['result'];
+    if (in_array($email, $exitingEmails)) {
+      echo json_encode(["status" => "fail", "message" => "Email already exists!"]);
+      exit();
+    }
+
     //hash password
     $hash = password_hash($password, PASSWORD_DEFAULT);
 
@@ -24,7 +37,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     if ($status[0] === "00000") {
       $expiry = time() + 3600 * 24;
-      // $userID = DBQuery("SELECT userID FROM users WHERE userEmail = ?", [$email], $connect)['result'][0]['userID'];
 
       $JWT = JWT::create([
         "email" => $email,

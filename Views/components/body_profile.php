@@ -16,7 +16,13 @@ if (!isset($user) || empty($user)) {
   if ($user['numRows'] > 0) {
     $user = $user['result'][0];
   } else {
-    $user = null;
+    $user["createAt"] = "null";
+    $user["userName"] = "Guest";
+    $user["userEmail"] = "";
+    $user["phone"] = "null";
+    $user["webLink"] = "#";
+    $user["address"] = "null";
+    $user["userEmail"] = $payload->email;
   }
 }
 ?>
@@ -166,7 +172,7 @@ if (!isset($user) || empty($user)) {
               </div>
             </div>
             <span>
-              <button type="submit" class="normal-button" disabled>Confirm</button>
+              <button type="submit" class="normal-button" disabled id="edit-user-info-submit-button">Confirm</button>
               <button type="reset" class="normal-button">Cancel</button>
             </span>
           </form>
@@ -294,6 +300,16 @@ if (!isset($user) || empty($user)) {
         });
       } else {
         alert("New password and confirm new password must be same");
+      }
+    }
+
+
+    // edit profile
+    function disabledUpdateBtn(disabled) {
+      if (!disabled) {
+        $("#edit-user-info-submit-button").prop("disabled", false);
+      } else {
+        $("#edit-user-info-submit-button").prop("disabled", true);
       }
     }
 

@@ -16,13 +16,13 @@ if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] === 'POST') 
     $content = convertString($_POST['note-content']);
     $tab = convertString($_POST['note-tab']);
 
-    $sql = "INSERT INTO notes (title, content, author, tab) VALUES (?, ?, ?, ?)";
+    $sql = "INSERT INTO notes (title, content, userID, tab) VALUES (?, ?, ?, ?)";
     $status = DBQuery($sql, [$title, $content, $payload->userID, $tab], $connect)['status'];
 
     if ($status[0] === "00000") {
       $status = "success";
       $message = "Note added successfully!";
-      $newNoteArray = DBQuery("SELECT * FROM notes WHERE author = ?", [$payload->userID], $connect)['result'];
+      $newNoteArray = DBQuery("SELECT * FROM notes WHERE userID = ?", [$payload->userID], $connect)['result'];
     } else {
       $status = "fail";
       $message = $status[2];
